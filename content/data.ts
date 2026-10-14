@@ -213,7 +213,7 @@ export const applyPage: ApplyPage = {
   motivationLabel: 'Why does this programme matter to you?',
   motivationPlaceholder: 'Share your ambition, curiosity or next big idea.',
   submitLabel: 'Send my application',
-  successMessage: 'Thank you — your Phase 1 application has been captured. We will be in touch with the next step.',
+  successMessage: 'Thank you — your application has been received. We will be in touch with the next step.',
 };
 
 export const supportPage: SupportPage = {

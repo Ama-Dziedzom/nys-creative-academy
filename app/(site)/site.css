@@ -70,3 +70,9 @@ i.hgi-stroke{display:inline-block;line-height:1;vertical-align:-.15em}.menu-togg
 .academy-card.red{--bg:#fde9e3;--shape:#ffb4a3}.academy-card.sand{--bg:#f4eee0;--shape:#e2cfa4}.academy-card.acid{--bg:#f2f8dc;--shape:#d2ee6a}.academy-card.peach{--bg:#fdefe0;--shape:#ffcc96}.academy-card.sky{--bg:#e7f3fd;--shape:#9fd2fb}.academy-card.purple{--bg:#f0e9ff;--shape:#c9adff}
 @media(max-width:900px){.academy-cards{grid-template-columns:1fr}}
 @media(max-width:560px){.academy-card{min-height:0}.academy-card>*{max-width:none}.academy-card::before,.academy-card::after{opacity:.35}.academy-card.diamonds::before{top:-30px;right:-30px}.academy-card.arches::before{top:-40px;right:60px}.academy-card.arches::after{top:-40px}}
+/* Form feedback: field errors under each input, and the hidden spam-trap field. */
+.trap{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.application-form .field-error{font:500 13px var(--sans);color:#b3261e}.application-form [aria-invalid=true]{border-color:#b3261e}
+.form-message{grid-column:1/-1;margin:0;font-size:14px;color:#b3261e}.application-success{margin-top:40px;padding:22px 24px;border-radius:16px;background:var(--acid);color:var(--ink);font-size:16px;font-weight:600}
+.newsletter-error{margin:10px 0 0 18px;font-size:13px;color:#b3261e}.newsletter-form button:disabled{opacity:.6}
+.not-found{margin:18px;border-radius:20px;min-height:calc(100vh - 36px)}.not-found a{color:var(--acid)}
