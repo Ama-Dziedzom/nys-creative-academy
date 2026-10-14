@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Footer } from '@/components/Footer';
+import { Icon } from '@/components/Icon';
 import { HeadingText } from '@/components/Lines';
 import { PageHero } from '@/components/PageHero';
 import { getAboutPage, getSiteSettings } from '@/content';
@@ -7,14 +8,13 @@ import { getAboutPage, getSiteSettings } from '@/content';
 export const metadata: Metadata = { title: 'About' };
 
 export default async function AboutPage() {
-  const [{ hero, initiative, founder }, settings] = await Promise.all([getAboutPage(), getSiteSettings()]);
+  const [{ hero, initiative, founder, team }, settings] = await Promise.all([getAboutPage(), getSiteSettings()]);
   return (
     <>
       <main>
         <PageHero hero={hero} />
         <section className="page-section split-content">
           <div>
-            <p className="eyebrow">{initiative.eyebrow}</p>
             <h2>
               <HeadingText heading={initiative.title} />
             </h2>
@@ -34,11 +34,38 @@ export default async function AboutPage() {
             </div>
           </div>
           <div className="prose">
-            <p className="eyebrow">{founder.eyebrow}</p>
             <h2>
               <HeadingText heading={founder.title} />
             </h2>
-            <p>{founder.text}</p>
+            {founder.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+        </section>
+        <section className="page-section team-section">
+          <div className="team-intro">
+            <h2>
+              <HeadingText heading={team.title} />
+            </h2>
+            <p>{team.text}</p>
+          </div>
+          <div className="team-grid">
+            {team.members.map((member, index) => (
+              <article key={index} className="team-card">
+                {member.image ? (
+                  <img src={member.image.src} alt={member.image.alt} />
+                ) : (
+                  <div className="team-headshot" aria-hidden="true">
+                    <Icon name="user" />
+                  </div>
+                )}
+                <div>
+                  <h3>{member.name}</h3>
+                  <span>{member.role}</span>
+                  <p>{member.bio}</p>
+                </div>
+              </article>
+            ))}
           </div>
         </section>
       </main>

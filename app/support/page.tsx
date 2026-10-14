@@ -27,7 +27,7 @@ export default async function SupportPage() {
           <ButtonLink link={cta} variant="primary" icon="arrow-up-right-01" className="page-footer-link" />
         </section>
       </main>
-      <Footer settings={settings} />
+      <Footer settings={settings} showCta={false} />
     </>
   );
 }

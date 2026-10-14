@@ -2,17 +2,16 @@ import Link from 'next/link';
 import { ButtonLink } from '@/components/ButtonLink';
 import { Footer } from '@/components/Footer';
 import { Icon } from '@/components/Icon';
-import { HeadingText, Lines } from '@/components/Lines';
+import { HeadingText } from '@/components/Lines';
 import { getHomePage, getSiteSettings } from '@/content';
 
 export default async function HomePage() {
-  const [{ hero, mission, paths, applyBand, supportBand }, settings] = await Promise.all([getHomePage(), getSiteSettings()]);
+  const [{ hero, mission, paths, applyBand }, settings] = await Promise.all([getHomePage(), getSiteSettings()]);
   return (
     <>
       <main id="top">
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <p className="eyebrow">{hero.eyebrow}</p>
             <h2 id="hero-title">
               <HeadingText heading={hero.title} />
             </h2>
@@ -21,32 +20,20 @@ export default async function HomePage() {
               <ButtonLink link={hero.primaryCta} variant="primary" icon="arrow-right-02" />
               <ButtonLink link={hero.secondaryCta} variant="quiet" />
             </div>
-            <div className="hero-proof">
-              <span className="pulse" />
-              <span>{hero.proof[0]}</span>
-              <span className="divider" />
-              <span>{hero.proof[1]}</span>
-            </div>
           </div>
-          <div className="hero-art">
-            <img src={hero.image.src} alt={hero.image.alt} />
-            <div className="art-label">
-              <b>
-                <Lines text={hero.imageLabel} />
-              </b>
-            </div>
-            <div className="orbit orbit-one" />
-            <div className="orbit orbit-two" />
-            <div className="star">
-              <Icon name="sparkles" />
+          <div className="hero-gallery">
+            <div className="hero-gallery-track">
+              {hero.gallery.map((image, index) => (
+                <figure key={image.src} style={{ '--offset': index - (hero.gallery.length - 1) / 2 } as React.CSSProperties}>
+                  <img src={image.src} alt={image.alt} title={image.credit} />
+                </figure>
+              ))}
             </div>
           </div>
         </section>
 
         <section id="about" className="intro-grid">
-          <p className="section-number">{mission.number}</p>
           <div>
-            <p className="eyebrow">{mission.eyebrow}</p>
             <h2>
               <HeadingText heading={mission.title} />
             </h2>
@@ -77,7 +64,7 @@ export default async function HomePage() {
                   <HeadingText heading={path.title} />
                 </h3>
                 <span>{path.summary}</span>
-                <Link href={`/academies#${path.academy}`} aria-label={`Explore ${path.label.split(' / ')[1]}`}>
+                <Link href={`/academies#${path.academy}`} aria-label={`Explore ${path.label}`}>
                   <Icon name="arrow-up-right-01" />
                 </Link>
               </article>
@@ -94,18 +81,8 @@ export default async function HomePage() {
           </div>
           <ButtonLink link={applyBand.cta} variant="primary" icon="arrow-right-02" />
         </section>
-
-        <section id="support" className="support-band">
-          <p className="eyebrow">{supportBand.eyebrow}</p>
-          <h2>
-            <HeadingText heading={supportBand.title} />
-          </h2>
-          <p className="support-copy">{supportBand.text}</p>
-          <ButtonLink link={supportBand.cta} variant="light" icon="arrow-up-right-01" />
-          {supportBand.note && <p className="support-note">{supportBand.note}</p>}
-        </section>
       </main>
-      <Footer settings={settings} showCopyright />
+      <Footer settings={settings} />
     </>
   );
 }

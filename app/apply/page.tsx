@@ -11,7 +11,6 @@ export default async function ApplyPage() {
   return (
     <>
       <main className="apply-page">
-        <p className="eyebrow">{content.eyebrow}</p>
         <h2>
           <HeadingText heading={content.title} />
         </h2>

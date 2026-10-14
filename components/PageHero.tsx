@@ -4,7 +4,6 @@ import { HeadingText } from './Lines';
 export function PageHero({ hero }: { hero: PageHeroContent }) {
   return (
     <section className="page-hero">
-      <p className="eyebrow">{hero.eyebrow}</p>
       <h1>
         <HeadingText heading={hero.title} />
       </h1>
