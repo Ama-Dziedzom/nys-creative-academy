@@ -1,22 +1,31 @@
 import 'server-only';
 import { mkdirSync } from 'node:fs';
-import { neon } from '@neondatabase/serverless';
-import { drizzle as drizzleNeon } from 'drizzle-orm/neon-http';
+import { attachDatabasePool } from '@vercel/functions';
+import { drizzle, type NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { connection } from 'next/server';
+import { Pool } from 'pg';
 import * as schema from './schema';
 
 /**
  * The database: Neon when DATABASE_URL is set (production, previews and any
  * developer who points at a Neon branch), otherwise an embedded Postgres
  * (PGlite) stored in .data/ so the site runs locally with no setup.
+ *
+ * On Vercel (Fluid compute) one pool is shared across requests in an instance,
+ * and attachDatabasePool closes idle connections before the instance suspends.
+ * DATABASE_URL is Neon's pooled (-pooler) connection string.
  */
 function connect() {
-  if (process.env.DATABASE_URL) return drizzleNeon({ client: neon(process.env.DATABASE_URL), schema });
+  if (process.env.DATABASE_URL) {
+    const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+    attachDatabasePool(pool);
+    return drizzle({ client: pool, schema });
+  }
   if (process.env.VERCEL) throw new Error('DATABASE_URL is not set. Add the Neon connection string in the Vercel project settings.');
   return null;
 }
 
-type Database = ReturnType<typeof drizzleNeon<typeof schema>>;
+type Database = NodePgDatabase<typeof schema>;
 
 const globalForDb = globalThis as unknown as { db?: Promise<Database> };
 

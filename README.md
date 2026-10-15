@@ -25,7 +25,8 @@ Without `DATABASE_URL`, the app uses an embedded Postgres (PGlite) stored in `.d
   - `types.ts` is the content model.
   - `data.ts` is the current content.
   - `index.ts` provides the async getters that pages call.
-- `lib/db/` holds the database schema (Drizzle) and the connection: Neon when `DATABASE_URL` is set, otherwise PGlite.
+- `lib/db/` holds the database schema (Drizzle) and the connection: Neon over `node-postgres` when `DATABASE_URL` is set (one pool per Vercel instance, closed on suspend by `attachDatabasePool`), otherwise PGlite.
+- `neon.ts` is the Neon project config. `.neon` links this folder to the Neon project and is gitignored.
 - `lib/auth/` covers admin auth:
   - password hashing (scrypt)
   - database-backed sessions, where the cookie holds a random token and only its hash is stored
@@ -37,13 +38,13 @@ Without `DATABASE_URL`, the app uses an embedded Postgres (PGlite) stored in `.d
 
 ## Deploying to Vercel with Neon
 
-1. Create a Neon project, and copy its connection string from Neon → Connect.
+1. Run `npx neon@latest env pull` to write `DATABASE_URL` (pooled) and `DATABASE_URL_UNPOOLED` (direct) for the linked Neon branch into `.env.local`.
 2. In Vercel → Project → Settings → Environment Variables, add:
-   - `DATABASE_URL`: the Neon connection string.
+   - `DATABASE_URL`: the pooled Neon connection string (host ends in `-pooler`).
    - `ADMIN_SETUP_TOKEN`: a long random value, for example from `openssl rand -base64 32`.
 
    Vercel's Neon integration can add `DATABASE_URL` for you.
-3. Create the tables by running `npm run db:migrate` with `DATABASE_URL` pointing at the Neon database (for example in `.env.local`).
+3. Create the tables by running `npm run db:migrate`. It uses `DATABASE_URL_UNPOOLED` from `.env.local`, because migrations need a direct connection.
 4. Deploy, open `/admin`, and you'll be sent to `/admin/setup`. Enter the setup token and create the first admin.
 5. Signed in, go to **Admins** to add the second admin. The setup page stops working once any admin exists.
 
