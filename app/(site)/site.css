@@ -76,3 +76,9 @@ i.hgi-stroke{display:inline-block;line-height:1;vertical-align:-.15em}.menu-togg
 .form-message{grid-column:1/-1;margin:0;font-size:14px;color:#b3261e}.application-success{margin-top:40px;padding:22px 24px;border-radius:16px;background:var(--acid);color:var(--ink);font-size:16px;font-weight:600}
 .newsletter-error{margin:10px 0 0 18px;font-size:13px;color:#b3261e}.newsletter-form button:disabled{opacity:.6}
 .not-found{margin:18px;border-radius:20px;min-height:calc(100vh - 36px)}.not-found a{color:var(--acid)}
+/* Hero ticker: the photos slide right to left along the curved strip, fading in and out past its ends. Pauses on hover; still for reduced motion. */
+.hero-gallery{--r:calc(var(--w) * 3);height:calc(var(--w) * 1.7);perspective:calc(var(--r) * 1.6);-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+.hero-gallery figure{--dur:calc(var(--n) * 4.5s);transform:none;opacity:0;backface-visibility:hidden;animation:hero-ticker var(--dur) linear infinite;animation-delay:calc(var(--i) / var(--n) * var(--dur) * -1)}
+@keyframes hero-ticker{0%{opacity:0;transform:rotateY(-100deg) translateZ(calc(var(--r) * -1))}12%,88%{opacity:1}100%{opacity:0;transform:rotateY(100deg) translateZ(calc(var(--r) * -1))}}
+.hero-gallery:hover figure{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){.hero-gallery figure{animation-play-state:paused}}

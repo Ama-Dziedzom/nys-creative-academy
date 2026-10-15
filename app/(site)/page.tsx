@@ -7,6 +7,8 @@ import { getHomePage, getSiteSettings } from '@/content';
 
 export default async function HomePage() {
   const [{ hero, mission, paths, applyBand }, settings] = await Promise.all([getHomePage(), getSiteSettings()]);
+  // The ticker needs at least 8 cards to fill its arc, so the photos repeat.
+  const reel = Array.from({ length: Math.ceil(8 / hero.gallery.length) * hero.gallery.length }, (_, i) => hero.gallery[i % hero.gallery.length]);
   return (
     <>
       <main id="top">
@@ -22,10 +24,14 @@ export default async function HomePage() {
             </div>
           </div>
           <div className="hero-gallery">
-            <div className="hero-gallery-track">
-              {hero.gallery.map((image, index) => (
-                <figure key={image.src} style={{ '--offset': index - (hero.gallery.length - 1) / 2 } as React.CSSProperties}>
-                  <img src={image.src} alt={image.alt} title={image.credit} />
+            <div className="hero-gallery-track" style={{ '--n': reel.length } as React.CSSProperties}>
+              {reel.map((image, index) => (
+                <figure
+                  key={`${image.src}-${index}`}
+                  aria-hidden={index >= hero.gallery.length || undefined}
+                  style={{ '--i': index } as React.CSSProperties}
+                >
+                  <img src={image.src} alt={index < hero.gallery.length ? image.alt : ''} title={image.credit} />
                 </figure>
               ))}
             </div>
