@@ -10,9 +10,8 @@ export default async function PanelLayout({ children }: { children: ReactNode })
     <div className="admin-shell">
       <aside className="admin-sidebar">
         <a className="admin-brand" href="/" target="_blank" rel="noreferrer">
-          <span className="admin-mark">NYS</span>
+          <img className="admin-logo" src="/brand/crest-full.png" alt="NYS Creative Academy" />
           <span>
-            Creative Academy
             <small>View site ↗</small>
           </span>
         </a>

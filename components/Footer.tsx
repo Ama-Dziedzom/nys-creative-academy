@@ -46,7 +46,6 @@ export function Footer({ settings, showCta = true }: { settings: SiteSettings; s
             <span className="ring ring-2" />
             <span className="ring ring-3" />
             <span className="ring ring-4" />
-            <span className="brand-mark">NYS</span>
             {footer.cta.images.slice(0, ORBIT_SPOTS.length).map((image, index) => (
               <img
                 key={image.src}
