@@ -11,8 +11,8 @@ body.admin{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 var(-
 /* Shell: sidebar and main column */
 .admin-shell{display:grid;grid-template-columns:248px minmax(0,1fr);min-height:100vh}
 .admin-sidebar{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:28px;padding:22px 14px;background:var(--ink);color:var(--paper)}
-.admin-brand{display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px 8px 22px;border-bottom:1px solid rgba(255,255,255,.12);text-decoration:none}.admin-brand small{color:rgba(245,244,238,.6);font-size:12px}.admin-brand:hover small{color:var(--acid)}
-.admin-logo{display:block;width:150px;height:auto;filter:drop-shadow(0 10px 24px rgba(0,0,0,.35))}
+.admin-brand{display:flex;flex-direction:column;align-items:center;gap:10px;padding:4px 8px 18px;border-bottom:1px solid rgba(255,255,255,.12);text-decoration:none}.admin-brand small{color:rgba(245,244,238,.6);font-size:12px}.admin-brand:hover small{color:var(--acid)}
+.admin-logo{display:block;width:96px;height:auto;filter:drop-shadow(0 10px 24px rgba(0,0,0,.35))}
 .admin-nav{display:grid;gap:2px}.admin-nav a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;color:rgba(245,244,238,.78)}.admin-nav a:hover{background:rgba(255,255,255,.06);color:var(--paper)}.admin-nav a[aria-current=page]{background:rgba(255,255,255,.1);color:var(--paper)}.admin-nav a[aria-current=page] i{color:var(--acid)}
 .admin-user{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 8px 0;border-top:1px solid rgba(255,255,255,.12);font-weight:600;font-size:14px;min-width:0}.admin-user>span{min-width:0}.admin-user small{color:rgba(245,244,238,.6);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .admin-user button{flex:none;display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:10px;background:rgba(255,255,255,.08);color:var(--paper);cursor:pointer}.admin-user button:hover{background:rgba(255,255,255,.16)}
@@ -94,7 +94,7 @@ body.admin{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 var(-
 @media(max-width:760px){
   .admin-shell{grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr}
   .admin-sidebar{position:sticky;z-index:5;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:12px 14px}
-  .admin-brand{padding:0;border:0}.admin-brand>span:last-child{display:none}.admin-logo{width:auto;height:44px}
+  .admin-brand{padding:0;border:0}.admin-brand>span:last-child{display:none}.admin-logo{width:auto;height:36px}
   .admin-nav{order:3;width:100%;display:flex;overflow-x:auto;gap:4px;margin:0 -4px}.admin-nav a{flex:none;padding:8px 10px;font-size:13px}
   .admin-user{margin:0 0 0 auto;padding:0;border:0}.admin-user>span{display:none}
   .admin-main{padding:24px 16px 48px}.admin-header h1{font-size:28px}
